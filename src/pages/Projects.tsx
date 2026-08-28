@@ -26,7 +26,7 @@ export function Projects({ onNavigate }: { onNavigate: (p: string) => void }) {
               key={p.name}
               className="rounded-xl border border-white/15 bg-white/[0.03] p-5"
             >
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="font-display text-2xl text-white">{p.name}</h3>
                 {p.link && (
                   <a
@@ -34,7 +34,7 @@ export function Projects({ onNavigate }: { onNavigate: (p: string) => void }) {
                     target="_blank"
                     rel="noreferrer"
                     data-cursor="open"
-                    className="font-mono text-[11px] uppercase tracking-widest text-cyan-300 underline-offset-4 hover:underline"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-cyan-400 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(34,211,238,0.55)] transition-all hover:bg-cyan-300 hover:shadow-[0_0_28px_rgba(34,211,238,0.8)]"
                   >
                     visit ↗
                   </a>
