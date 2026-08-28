@@ -78,7 +78,7 @@ export function Projects({ onNavigate }: { onNavigate: (p: string) => void }) {
               text={open ? "hide terminal" : "terminal"} 
             />
           </div>
-          {open && <Terminal onNavigate={onNavigate} onClose={() => setOpen(false)} />}
+          {open && <Terminal onClose={() => setOpen(false)} />}
         </div>
       </section>
     </Page>

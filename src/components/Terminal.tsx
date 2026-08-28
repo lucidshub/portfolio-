@@ -39,10 +39,8 @@ const clsOf = (c?: Line["cls"]) => {
 };
 
 export function Terminal({
-  onNavigate,
   onClose,
 }: {
-  onNavigate?: (p: string) => void;
   onClose?: () => void;
 }) {
   const [lines, setLines] = useState<Line[]>([]);
@@ -199,9 +197,33 @@ export function Terminal({
       );
       return;
     }
-    if (["about", "learning", "contact", "home", "projects"].includes(cmd)) {
-      push({ text: `navigating to ${cmd}…`, cls: "out" });
-      onNavigate?.(cmd);
+    if (cmd === "home") {
+      push([
+        { text: "You're on the portfolio home.", cls: "out" },
+        { text: "ask about/learning/projects/contact — summaries show right here.", cls: "out" },
+      ]);
+      return;
+    }
+    if (cmd === "about") {
+      push([
+        { text: "Shubham Bhandare — 2nd-year AI & DS student, Mumbai University.", cls: "out" },
+        { text: "building for hackathons + fun. ask 'learning' or 'projects'.", cls: "out" },
+      ]);
+      return;
+    }
+    if (cmd === "learning") {
+      push([
+        { text: "currently learning: Python, HTML, CSS, JavaScript, Git, GitHub, SQL, MongoDB.", cls: "out" },
+        { text: "not mastery — just what he's working with right now. (see the Learning page too)", cls: "out" },
+      ]);
+      return;
+    }
+    if (cmd === "contact") {
+      push([
+        { text: "email: shubhambhandare2008@gmail.com", cls: "out" },
+        { text: "github: https://github.com   ·   linkedin: https://linkedin.com", cls: "out" },
+        { text: "type 'projects' for build links.", cls: "out" },
+      ]);
       return;
     }
     push(answer(raw));
