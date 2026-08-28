@@ -98,6 +98,52 @@ export function Terminal({
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
   }, [lines]);
 
+  // Lightweight, fully client-side responder so questions get answered in-terminal.
+  const answer = (raw: string): Line[] => {
+    const q = raw.toLowerCase();
+    const say = (t: string): Line => ({ text: t, cls: "out" });
+
+    if (/^(hi|hello|hey|yo|sup|howdy)\b/.test(q))
+      return [say("hey — I'm Shubham's portfolio terminal. ask me about him: skills, projects, contact…")];
+
+    if (/(who|about|yourself|tell me about)/.test(q))
+      return [
+        say("Shubham Bhandare — 2nd-year AI & DS student."),
+        say("ask 'learning' for skills, 'projects' for builds, 'contact' to reach him."),
+      ];
+
+    if (/(skill|learning|studying|learn|tech|stack|know|do you)/.test(q))
+      return [
+        say("currently learning: Python, HTML, CSS, JavaScript, Git, GitHub, SQL, MongoDB."),
+        say("type 'learning' to see the cards."),
+      ];
+
+    if (/(project|built|build|made|campusfind|portfolio)/.test(q)) {
+      const out: Line[] = [{ text: "projects:", cls: "out" }];
+      if (projects.length === 0) out.push(say("  (none added yet)"));
+      projects.forEach((p) =>
+        out.push({
+          text: `  → ${p.name}${p.link ? "  (" + p.link + ")" : ""}`,
+          cls: "link",
+          link: p.link,
+        })
+      );
+      return out;
+    }
+
+    if (/(contact|reach|email|mail|github|linkedin|get in touch)/.test(q))
+      return [
+        say("email: shubhambhandare2008@gmail.com"),
+        say("github: https://github.com   ·   linkedin: https://linkedin.com"),
+        say("or type 'contact' to open the contact page."),
+      ];
+
+    return [
+      say(`"${raw}" — I'm a tiny terminal, not an AI.`),
+      say("ask about Shubham: who are you, skills, projects, contact. or 'help' for commands."),
+    ];
+  };
+
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
     push({ text: "visitor@shubham:~$ " + raw, cls: "cmd" });
@@ -134,7 +180,7 @@ export function Terminal({
       onNavigate?.(cmd);
       return;
     }
-    push({ text: `command not found: ${raw}  (try 'help')`, cls: "err" });
+    push(answer(raw));
   };
 
   const onSubmit = (e: React.FormEvent) => {
