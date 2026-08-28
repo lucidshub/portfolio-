@@ -8,6 +8,7 @@ const LEARNING = [
   { name: "Git", sub: "Version Control", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
   { name: "GitHub", sub: "Collaboration", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
   { name: "SQL", sub: "Database", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" },
+  { name: "MongoDB", sub: "Database", img: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
 ];
 
 export function Learning() {
