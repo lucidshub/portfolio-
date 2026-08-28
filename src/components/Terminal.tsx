@@ -103,22 +103,40 @@ export function Terminal({
     const q = raw.toLowerCase();
     const say = (t: string): Line => ({ text: t, cls: "out" });
 
-    if (/^(hi|hello|hey|yo|sup|howdy)\b/.test(q))
-      return [say("hey — I'm Shubham's portfolio terminal. ask me about him: skills, projects, contact…")];
+    if (/^(hi|hello|hey|yo|sup|howdy|namaste)\b/.test(q))
+      return [say("hey — I'm Shubham's portfolio terminal. ask me about him: name, study, skills, projects, contact…")];
 
-    if (/(who|about|yourself|tell me about)/.test(q))
+    if (/\b(name|who are you|about|yourself|intro|tell me)\b/.test(q))
       return [
-        say("Shubham Bhandare — 2nd-year AI & DS student."),
-        say("ask 'learning' for skills, 'projects' for builds, 'contact' to reach him."),
+        say("I'm the portfolio of Shubham Bhandare."),
+        say("2nd-year AI & DS student at Mumbai University."),
       ];
 
-    if (/(skill|learning|studying|learn|tech|stack|know|do you)/.test(q))
+    if (/\b(year|sem|semester|college|university|where)\b/.test(q))
+      return [
+        say("2nd year, AI & Data Science — Mumbai University."),
+        say("type 'learning' to see the tech he works with."),
+      ];
+
+    if (/(skill|learning|studying|learn|tech|stack|know|do you|tools)/.test(q))
       return [
         say("currently learning: Python, HTML, CSS, JavaScript, Git, GitHub, SQL, MongoDB."),
         say("type 'learning' to see the cards."),
       ];
 
-    if (/(project|built|build|made|campusfind|portfolio)/.test(q)) {
+    if (/(campusfind|campus|find)/.test(q)) {
+      const p = projects.find((x) => x.name.toLowerCase().includes("campus"));
+      if (p)
+        return [
+          say("CampusFind — a group project with Abdul Mallebhari & Vedant Lende."),
+          ...p.link
+            ? [{ text: "→ " + p.link, cls: "link" as Line["cls"], link: p.link }]
+            : [],
+        ];
+      return [say("CampusFind — group project, live web app.")];
+    }
+
+    if (/(project|built|build|made|portfolio|work)/.test(q)) {
       const out: Line[] = [{ text: "projects:", cls: "out" }];
       if (projects.length === 0) out.push(say("  (none added yet)"));
       projects.forEach((p) =>
@@ -131,16 +149,22 @@ export function Terminal({
       return out;
     }
 
-    if (/(contact|reach|email|mail|github|linkedin|get in touch)/.test(q))
+    if (/(contact|reach|email|mail|github|linkedin|get in touch|hire)/.test(q))
       return [
         say("email: shubhambhandare2008@gmail.com"),
         say("github: https://github.com   ·   linkedin: https://linkedin.com"),
         say("or type 'contact' to open the contact page."),
       ];
 
+    if (/(help|what can you|commands|options)/.test(q))
+      return [
+        say("ask me anything: name, study, skills, projects, campusfind, contact."),
+        say("commands: projects, about, learning, contact, clear."),
+      ];
+
     return [
-      say(`"${raw}" — I'm a tiny terminal, not an AI.`),
-      say("ask about Shubham: who are you, skills, projects, contact. or 'help' for commands."),
+      say(`Not sure about "${raw}". Ask me: name, study, skills, projects, campusfind, contact.`),
+      say("or type 'help' for commands."),
     ];
   };
 
