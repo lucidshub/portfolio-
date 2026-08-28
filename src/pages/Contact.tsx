@@ -35,8 +35,8 @@ export function Contact() {
         </p>
 
         <div className="mt-12 flex flex-wrap justify-center gap-6 sm:justify-start">
-          <ContactCard href="https://github.com" label="GitHub" sub="@shubham" icon={GitHubIcon} />
-          <ContactCard href="https://linkedin.com" label="LinkedIn" sub="in/shubham" icon={LinkedInIcon} />
+          <ContactCard href="https://github.com/lucidshub" label="GitHub" sub="@lucidshub" icon={GitHubIcon} />
+          <ContactCard href="https://www.linkedin.com/in/shubham-bhandare-b3a3053b2" label="LinkedIn" sub="in/shubham-bhandare-b3a3053b2" icon={LinkedInIcon} />
           <ContactCard href="mailto:shubhambhandare2008@gmail.com" label="Email" sub="shubhambhandare2008@gmail.com" icon={MailIcon} />
         </div>
       </section>

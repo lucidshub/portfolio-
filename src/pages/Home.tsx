@@ -24,7 +24,7 @@ export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
             get in touch
           </button>
           <a
-            href="https://github.com"
+            href="https://github.com/lucidshub"
             data-cursor="open"
             className="font-mono text-xs uppercase tracking-widest text-white/70 underline-offset-4 hover:text-white hover:underline"
           >

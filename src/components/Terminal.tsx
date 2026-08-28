@@ -56,7 +56,7 @@ export function Terminal({
   useEffect(() => {
     cancelled.current = false;
     (async () => {
-      await sleep(400);
+      await sleep(200);
       for (const step of DEMO) {
         if (cancelled.current) return;
         let typed = "";
@@ -73,14 +73,14 @@ export function Terminal({
             }
             return copy;
           });
-          await sleep(45);
+          await sleep(15);
         }
         playKey();
         if (step.out.length) {
-          await sleep(350);
+          await sleep(120);
           push(step.out.map((o) => ({ text: o, cls: "out" as const })));
         }
-        await sleep(650);
+        await sleep(220);
       }
       if (!cancelled.current) {
         push({ text: "type 'help' to see what I can do.", cls: "hint" });
@@ -150,7 +150,7 @@ export function Terminal({
     if (/(contact|reach|email|mail|github|linkedin|get in touch|hire)/.test(q))
       return [
         say("email: shubhambhandare2008@gmail.com"),
-        say("github: https://github.com   ·   linkedin: https://linkedin.com"),
+        say("github: https://github.com/lucidshub   ·   linkedin: linkedin.com/in/shubham-bhandare-b3a3053b2"),
         say("or type 'contact' to open the contact page."),
       ];
 
@@ -221,7 +221,7 @@ export function Terminal({
     if (cmd === "contact") {
       push([
         { text: "email: shubhambhandare2008@gmail.com", cls: "out" },
-        { text: "github: https://github.com   ·   linkedin: https://linkedin.com", cls: "out" },
+        { text: "github: https://github.com/lucidshub   ·   linkedin: linkedin.com/in/shubham-bhandare-b3a3053b2", cls: "out" },
         { text: "type 'projects' for build links.", cls: "out" },
       ]);
       return;
