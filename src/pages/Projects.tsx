@@ -42,29 +42,27 @@ export function Projects({ onNavigate }: { onNavigate: (p: string) => void }) {
               </div>
               <p className="mt-2 max-w-xl text-sm text-white/75">{p.description}</p>
               {p.members && (
-                <div className="mt-3">
-                  <p className="font-mono text-[11px] uppercase tracking-wider text-white/40">
-                    group project
-                  </p>
-                  <ul className="mt-1 space-y-1">
-                    {p.members.map((m) => (
-                      <li key={m.name} className="font-mono text-[13px] text-white/75">
-                        <span>{m.name}</span>
-                        {m.link && (
-                          <a
-                            href={m.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            data-cursor="open"
-                            className="mt-0.5 block text-[12px] lowercase text-cyan-300 underline-offset-4 hover:underline"
-                          >
-                            {m.link.replace(/^https?:\/\//, "")}
-                          </a>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-white/50">
+                  group project ·{" "}
+                  {p.members.map((m, i) => (
+                    <span key={m.name}>
+                      {m.link ? (
+                        <a
+                          href={m.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-cursor="open"
+                          className="text-cyan-300 underline-offset-4 hover:underline"
+                        >
+                          {m.name}
+                        </a>
+                      ) : (
+                        <span className="text-white/70">{m.name}</span>
+                      )}
+                      {i < p.members!.length - 1 ? " · " : ""}
+                    </span>
+                  ))}
+                </p>
               )}
             </div>
           ))}
