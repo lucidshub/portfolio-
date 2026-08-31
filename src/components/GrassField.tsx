@@ -401,7 +401,7 @@ function __OriginkitBase_GrassField(props: Props) {
         const gz = (i: number) => -(0.04 * Math.pow(46.0 / 0.04, i / NZ))
         for (let i = 0; i < NZ; i++) {
             const z0 = gz(i), z1 = gz(i + 1)
-            const s0 = 3.0 - z0 * 1.05, s1 = 3.0 - z1 * 1.05
+            const s0 = 4.6 - z0 * 1.15, s1 = 4.6 - z1 * 1.15
             for (let j = 0; j < NX; j++) {
                 const t0 = (j / NX) * 2 - 1, t1 = ((j + 1) / NX) * 2 - 1
                 gverts.push(t0 * s0, z0, t1 * s0, z0, t0 * s1, z1, t0 * s1, z1, t1 * s0, z0, t1 * s1, z1)
@@ -429,7 +429,7 @@ function __OriginkitBase_GrassField(props: Props) {
             const uu = (b * GOLDEN) % 1
             const dist = 0.55 + 42.0 * Math.pow(uu, 1.3)
             const z = -dist
-            const spread = 2.2 + dist * 0.85
+            const spread = 3.2 + dist * 1.25
             const x = ((b * SILVER) % 1) * 2 * spread - spread
             const r0 = (b * TRIBO) % 1
             const r1 = (b * 0.5436890126920763) % 1
@@ -480,7 +480,8 @@ function __OriginkitBase_GrassField(props: Props) {
             ptr.x += ((ptr.onTarget > 0 ? ptr.tx : 0.5) - ptr.x) * k
             ptr.y += ((ptr.onTarget > 0 ? ptr.ty : 0.5) - ptr.y) * k
 
-            const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR)
+            const small = Math.min(window.innerWidth || 0, window.innerHeight || 0) < 700
+            const dpr = Math.min(window.devicePixelRatio || 1, small ? 1 : MAX_DPR)
             const cw = sizeRef.current.w || canvas.clientWidth || 1200
             const ch = sizeRef.current.h || canvas.clientHeight || 800
             const bw = Math.max(1, Math.round(cw * dpr))
@@ -571,9 +572,10 @@ function __OriginkitBase_GrassField(props: Props) {
             gl.uniform3f(bu("uBase"), baseC[0], baseC[1], baseC[2])
             gl.uniform3f(bu("uTip"), tipC[0], tipC[1], tipC[2])
             gl.uniform3f(bu("uHaze"), haze[0], haze[1], haze[2])
-            gl.drawArrays(gl.TRIANGLES, 0, v.count * VERTS_PER_BLADE)
+            const blades = Math.round(v.count * (small ? 0.3 : 1))
+            gl.drawArrays(gl.TRIANGLES, 0, blades * VERTS_PER_BLADE)
 
-            raf = requestAnimationFrame(render)
+            raf = requestAnimationFrame(document.hidden ? () => { raf = requestAnimationFrame(render) } : render)
         }
 
         const track = (e: PointerEvent) => {
