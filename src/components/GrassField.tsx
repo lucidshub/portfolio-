@@ -75,7 +75,7 @@ varying vec3 vCol;
 varying float vFog;
 
 void main() {
-    gl_FragColor = vec4(mix(vCol, uHaze, vFog * 0.82), 1.0);
+    gl_FragColor = vec4(mix(vCol, uHaze, vFog * 0.42), 1.0);
 }
 `
 
@@ -427,7 +427,7 @@ function __OriginkitBase_GrassField(props: Props) {
         let vi = 0
         for (let b = 0; b < MAX_BLADES; b++) {
             const uu = (b * GOLDEN) % 1
-            const dist = 0.55 + 32.0 * Math.pow(uu, 1.75)
+            const dist = 0.55 + 42.0 * Math.pow(uu, 1.3)
             const z = -dist
             const spread = 2.2 + dist * 0.85
             const x = ((b * SILVER) % 1) * 2 * spread - spread
